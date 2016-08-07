@@ -2,6 +2,7 @@ package i_nterface.kdas.uitest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -17,6 +18,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         RecyclerView rv = (RecyclerView)findViewById(R.id.rview);
-        data.add(0, new dataset("kilo"));
+        for (int i = 0; i < 40; ++i)
+        {
+            data.add(0, new dataset("kilo"));
+        }
+
+        RVadapter adapter = new RVadapter(this, data);
+
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(new LinearLayoutManager(this));
     }
 }

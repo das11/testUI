@@ -21,7 +21,7 @@ public class RVadapter extends RecyclerView.Adapter<RVadapter.ViewHolder>{
         public ViewHolder(View itemView) {
             super(itemView);
 
-            TextView cardtext = (TextView)itemView.findViewById(R.id.card_text_view);
+            cardtext = (TextView)itemView.findViewById(R.id.card_text_view);
         }
     }
 
@@ -54,7 +54,7 @@ public class RVadapter extends RecyclerView.Adapter<RVadapter.ViewHolder>{
         dataset data = mdata.get(position);
 
         TextView cardtextview = holder.cardtext;
-        cardtextview.setText("hello !");
+        cardtextview.setText(data.event);
 
     }
 
