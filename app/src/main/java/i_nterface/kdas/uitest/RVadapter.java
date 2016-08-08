@@ -1,11 +1,13 @@
 package i_nterface.kdas.uitest;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -14,16 +16,38 @@ import java.util.List;
  */
 public class RVadapter extends RecyclerView.Adapter<RVadapter.ViewHolder>{
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView cardtext;
+        public TextView adapterdate;
+        private Context context;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(Context context, View itemView) {
             super(itemView);
 
-            cardtext = (TextView)itemView.findViewById(R.id.card_text_view);
+            this.cardtext = (TextView)itemView.findViewById(R.id.card_text_view);
+            this.adapterdate = (TextView)itemView.findViewById(R.id.textView);
+            this.context = context;
+            itemView.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            int pos = getLayoutPosition();
+            Toast.makeText(context, "" + cardtext.getText() + pos + "", Toast.LENGTH_SHORT).show();
+
+            if (pos == 0) {
+                Intent i = new Intent(context, Main2Activity.class);
+                context.startActivity(i);
+            }
+
         }
     }
+
+
 
         private List<dataset> mdata;
         private Context mcontext;
@@ -44,7 +68,7 @@ public class RVadapter extends RecyclerView.Adapter<RVadapter.ViewHolder>{
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View rowView = inflater.inflate(R.layout.rrow, parent,false);
-        ViewHolder viewHolder = new ViewHolder(rowView);
+        ViewHolder viewHolder = new ViewHolder(getContext(), rowView);
 
         return viewHolder;
     }
@@ -55,6 +79,8 @@ public class RVadapter extends RecyclerView.Adapter<RVadapter.ViewHolder>{
 
         TextView cardtextview = holder.cardtext;
         cardtextview.setText(data.event);
+        //TextView mdate = holder.adapterdate;
+        holder.adapterdate.setText(data.date);
 
     }
 
